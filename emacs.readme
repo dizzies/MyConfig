@@ -1,0 +1,52 @@
+主要想学习python，并且在linux下利用emacs编程
+相关的链接：
+http://dolive.iteye.com/blog/246060
+http://www.blogjava.net/zhenyu/archive/2006/10/17/75657.html
+在王垠博客的基本配置的基础上增加自己的配置http://docs.huihoo.com/homepage/shredderyin/wiki/SimpleConfig.html
+
+
+1.在工具条中设置主题（貌似不是很让人满意，在颜色的搭配的太过于单一）
+加上一些自己喜欢的通用配置：
+加载路径：(add-to-list 'load-path "~/.emacs.d/site-lisp/")
+
+使用line-num.el显示行号(required ‘line-num) (global-linum-mode 1)
+使用以上链接选择一些配置，比如使用通用的粘贴板之类的。
+
+对于emacs的窗口确实有点烦，比如说打开帮助窗口的时候就经常忘了关闭的命令，对此有关帮助记忆的资料http://blog.csdn.net/qq252101792/article/details/7386804
+
+2.装三个帮助调试，阅读代码工具ecb(emacs code browser), etags(vim中是ctags), cscope(C语言的).
+
+对于ecb，要加入配置
+(load-file "/usr/share/emacs/site-lisp/cedet/common/cedet.el")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/ecb")
+(require 'ecb)
+;;To load ecb at startup:
+;;(require 'ecb)
+;;- or -
+;;To load ecb first after starting it by ecb-activate:
+;;(require 'ecb-autoloads)
+ecb使用时会有提示和帮助文档，以下是开始启动emacs时使用ecb并且避开以上两种情况
+(require 'ecb-autoloads) 
+(setq ecb-auto-activate t 
+ecb-tip-of-the-day nil 
+inhibit-startup-message t 
+ecb-auto-compatibility-check nil 
+ecb-version-check nil)
+
+对于etags，要加入配置
+(require 'etags-select)
+(global-set-key "\M-?" 'etags-select-find-tag-at-point)
+(global-set-key "\M-." 'etags-select-find-tag)  
+PS:arch中安装好之后会有提示。
+对于cscope的使用http://lifegoo.pluskid.org/wiki/EmacsCscope.html
+
+
+
+3.在两个网站上粘贴一些设置过来（貌似有些不管用）
+http://emacser.com/dea.htm
+http://dolive.iteye.com/blog/246060
+
+
+弄下光标和复制粘贴之类的。
+
+最后折腾python的，代码补全，搜索函数和类、库
