@@ -1,0 +1,144 @@
+(setq visible-bell t)
+(setq inhibit-startup-message t)
+(setq column-number-mode t) 
+(setq mouse-yank-at-point t)
+(setq kill-ring-max 200)
+(setq default-fill-column 60)
+(setq-default indent-tabs-mode nil)
+(setq default-tab-width 8)
+(setq tab-stop-list ())
+;;(loop for x downfrom 40 to 1 do
+;;      (setq tab-stop-list (cons (* x 4) tab-stop-list)))
+(setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
+(setq sentence-end-double-space nil)
+(setq enable-recursive-minibuffers t)
+(setq scroll-margin 3
+      scroll-conservatively 10000)
+(setq default-major-mode 'text-mode)
+(show-paren-mode t)
+(setq show-paren-style 'parentheses)
+(mouse-avoidance-mode 'animate)
+(setq frame-title-format "emacs@%b")
+(auto-image-file-mode)
+(global-font-lock-mode t)
+(put 'set-goal-column 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'LaTeX-hide-environment 'disabled nil)
+(setq version-control t)
+(setq kept-new-versions 3)
+(setq delete-old-versions t)
+(setq kept-old-versions 2)
+(setq dired-kept-versions 1)
+(mapcar
+ (function (lambda (setting)
+	     (setq auto-mode-alist
+		   (cons setting auto-mode-alist))))
+ '(("\\.xml$".  sgml-mode)
+   ("\\\.bash" . sh-mode)
+   ("\\.rdf$".  sgml-mode)
+   ("\\.session" . emacs-lisp-mode)
+   ("\\.l$" . c-mode)
+   ("\\.css$" . css-mode)
+   ("\\.cfm$" . html-mode)
+   ("gnus" . emacs-lisp-mode)
+   ("\\.idl$" . idl-mode)))
+(setq user-full-name "Dongpeng Li")
+(setq user-mail-address "ldp1221@gmail.com")
+(setq dired-recursive-copies 'top)
+(setq dired-recursive-deletes 'top)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;my preference(little change);;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/")
+(add-to-list 'load-path "~/.emacs.d/")
+(require 'line-num)
+(global-linum-mode 1)
+(setq-default cursor-type 'bar) ; 设置光标为竖线
+(setq x-select-enable-clipboard t);;copy and past
+
+;;滚动页面时比较舒服，不要整页的滚动 
+(setq scroll-step 1 
+scroll-margin 3 
+scroll-conservatively 10000) 
+;;去掉烦人的警告铃声 
+(setq visible-bell nil) 
+;;允许自动打开图片，如wiki里面 
+(auto-image-file-mode) 
+;;所有的问题用y/n方式，不用yes/no方式。有点懒，只想输入一个字母 
+(fset 'yes-or-no-p 'y-or-n-p) 
+;;不要滚动栏，现在都用滚轴鼠标了，可以不用滚动栏了 (unactivate)
+(scroll-bar-mode nil)
+(set-frame-position (selected-frame) 0 0);;position:top-left
+(set-frame-width (selected-frame) 108);;window's width
+(set-frame-height (selected-frame) 37);;window's height
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;set the theme;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'color-theme-ahei)
+(require 'color-theme)
+(color-theme-taming-mr-arneson)
+
+;full screen and maximize
+
+(global-set-key [f11] 'my-fullscreen)
+
+;全屏
+(defun my-fullscreen ()
+   (interactive)
+     (x-send-client-message
+         nil 0 nil "_NET_WM_STATE" 32
+            '(2 "_NET_WM_STATE_FULLSCREEN" 0))
+     )
+;最大化
+
+(defun my-maximized ()
+   (interactive)
+     (x-send-client-message
+         nil 0 nil "_NET_WM_STATE" 32
+            '(1 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
+       (interactive)
+         (x-send-client-message
+             nil 0 nil "_NET_WM_STATE" 32
+                '(1 "_NET_WM_STATE_MAXIMIZED_VERT" 0)))
+
+
+;启动时最大化
+(my-maximized)
+
+
+
+;auto-complete.el
+
+;ecb , like taglist and winmanager of vim
+;auto-start ecb while emacsing
+(setq ecb-auto-activate t)
+;close tips of ecb
+(setq ecb-tip-of-the-day nil)
+(global-set-key [M-left] 'windmove-left)  
+(global-set-key [M-right] 'windmove-right)  
+(global-set-key [M-up] 'windmove-up)  
+(global-set-key [M-down] 'windmove-down)  
+;; 隐藏和显示ecb窗口 (C-F1,C-F2)  
+(define-key global-map [(control f1)] 'ecb-hide-ecb-windows)  
+(define-key global-map [(control f2)] 'ecb-show-ecb-windows)  
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40"))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
